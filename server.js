@@ -4,7 +4,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
-
+const middleware = require('./middleware.js'); // Import custom middleware
+const queries = require('./queries.js'); // Import queries module
 
 // Initialize Express app
 const app = express();
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware setup
 app.use(bodyParser.json());
+app.use(middleware); // Use custom middleware for logging, API key validation, and error handling
 
 
 // Sample in-memory products database
@@ -113,12 +115,6 @@ app.delete('/api/products/:id', (req, res) => {
   const deleted = products.splice(index, 1);
   res.json({ message: 'Product deleted', product: deleted[0] });
 });
-
-// Example route implementation for GET /api/products
-//app.get('/api/products', (req, res) => {
- // res.json(products);
-//});
-
 
 // Start the server
 app.listen(PORT, () => {

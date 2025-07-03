@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 // - Error handling
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong' });
 });
